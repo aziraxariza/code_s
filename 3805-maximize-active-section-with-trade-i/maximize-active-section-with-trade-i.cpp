@@ -13,11 +13,9 @@ public:
 
         int ans = ones;
 
-        // Skip first 1's
         while(i < n && s[i] == '1')
             i++;
 
-        // Read first 0-block
         int c10 = 0;
         while(i < n && s[i] == '0'){
             c10++;
@@ -26,7 +24,6 @@ public:
 
         while(i < n){
 
-            // Read middle 1-block
             int c11 = 0;
             while(i < n && s[i] == '1'){
                 c11++;
@@ -36,7 +33,6 @@ public:
             if(c11 == 0)
                 break;
 
-            // Read right 0-block
             int c20 = 0;
             while(i < n && s[i] == '0'){
                 c20++;
@@ -48,7 +44,6 @@ public:
 
             ans = max(ans, ones + c10 + c20);
 
-            // Slide the window
             c10 = c20;
         }
 
