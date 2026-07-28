@@ -7,7 +7,7 @@ public:
             if (nums[i] != 0) {
                 swap(nums[i], nums[j]);
                 j++;
-            }
+            } 
         }
     }
 };
