@@ -16,7 +16,7 @@ public:
                 l++; // window shrink
             }
 
-            cnt += r - l + 1;// valid subarrays ending at r
+            cnt += r - l + 1; // valid subarrays ending at r
         }
 
         return cnt;
