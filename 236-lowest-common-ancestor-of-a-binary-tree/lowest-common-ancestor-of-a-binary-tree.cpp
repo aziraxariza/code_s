@@ -16,8 +16,8 @@ public:
         TreeNode* left = lowestCommonAncestor(root -> left, p, q);
         TreeNode* right = lowestCommonAncestor(root -> right, p, q);
 
-        if(left && right) return root; //left aur right dono se value mili
+        if(left && right) return root; //iss root ke left aur right dono se value mili toh humara root lca hai
 
-        return left ? left : right; // jisse mili value usko wapas bhejo
+        return left ? left : right; // jisse mili value usko wapas bhejo jo not null hai
     }
 };
