@@ -9,7 +9,7 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
-class Solution {
+class Solution { // left view hota tph first lete jab i == 0 hota
 public:
     vector<int> rightSideView(TreeNode* root) { //bfs karenge since level wise last ele
         vector<int> ans;
@@ -25,14 +25,13 @@ public:
                 TreeNode* node = q.front();
                 q.pop(); // pop karte jao jab tak last ele na aaye level ka
 
-                if(i == n - 1) //mila aakhri node of this level
+                if(i == n - 1) // i ab aakhri turn of level --> mila aakhri node of this level
                     ans.push_back(node->val); //ans mein dalo
 
                 if(node->left) q.push(node->left); // repeat for left child
                 if(node->right) q.push(node->right); // repeat for right child
             }
         }
-
         return ans; // ans bheja of all righties
     }
 };
