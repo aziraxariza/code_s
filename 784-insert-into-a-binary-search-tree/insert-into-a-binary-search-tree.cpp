@@ -11,12 +11,13 @@
  */
 class Solution {
 public:
-    TreeNode* insertIntoBST(TreeNode* root, int val) {
+    TreeNode* insertIntoBST(TreeNode* root, int val) { // humesha apni jagah khojta hai in bst instead kisi aur node ko replace karne ke
         if(root == NULL) // agar khali toh add new node
             return new TreeNode(val);
 
         if(val < root->val) // val curr node ki val se kum 
             root->left = insertIntoBST(root->left, val); // isko fir curr node ke left mein dalo
+
         else// val cur node ke val se zyada toh usko cur node ke right mein daalo
             root->right = insertIntoBST(root->right, val); // right side ke liye recursive call
 
