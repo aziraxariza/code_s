@@ -12,14 +12,14 @@
 class Solution {
 public:
     TreeNode* insertIntoBST(TreeNode* root, int val) {
-        if(root == NULL)
+        if(root == NULL) // agar khali toh add new node
             return new TreeNode(val);
 
-        if(val < root->val)
-            root->left = insertIntoBST(root->left, val);
-        else
-            root->right = insertIntoBST(root->right, val);
+        if(val < root->val) // val curr node ki val se kum 
+            root->left = insertIntoBST(root->left, val); // isko fir curr node ke left mein dalo
+        else// val cur node ke val se zyada toh usko cur node ke right mein daalo
+            root->right = insertIntoBST(root->right, val); // right side ke liye recursive call
 
-        return root;
+        return root; // return root karna tha
     }
 };
