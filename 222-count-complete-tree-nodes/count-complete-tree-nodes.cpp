@@ -36,7 +36,7 @@ public:
         int rh = rightHeight(root); // root ki right heighr
 
         if(lh == rh){ // perfect bt hai
-        return (1 << lh) - 1;; // height of perfect bt
+        return pow(2, lh) - 1;; // height of perfect bt
 
         }
         return 1 + countNodes(root -> left) + countNodes(root -> right); // warna hum parent ko kya bhejenge
