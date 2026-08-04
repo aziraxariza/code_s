@@ -1,31 +1,28 @@
 class KthLargest {
 public:
-    KthLargest(int k, vector<int>& nums) : k(k) {
-        for (int num : nums) {
-            if (minHeap.size() < k) {
-                minHeap.push(num);
-            } else if (num > minHeap.top()) {
-                minHeap.push(num);
-                if (minHeap.size() > k) {
-                    minHeap.pop();
-                }
+    // define min heap here not in constructor and k too taki its accesible in complete class
+    priority_queue<int, vector<int>, greater<int>> pq;
+    int k;
+
+    // this is constructor
+    KthLargest(int k, vector<int>& nums){
+        this->k = k;
+        for(int x : nums){
+            pq.push(x); // min heap mein dalo
+
+            if(pq.size() > k){// size exceeded after addition
+                pq.pop(); // sabse min hata do kyuki sirf k largest rakhne hai hume
             }
         }
     }
 
-    int add(int val) {
-        if (minHeap.size() < k) {
-            minHeap.push(val);
-        } else if (val > minHeap.top()) {
-            minHeap.push(val);
-            minHeap.pop();
+    int add(int val){
+        pq.push(val);
+        if(pq.size() > k){
+            pq.pop(); // sirf k elements rakhenge aur front kth largets hoga regardless of adding val
         }
-        return minHeap.top();
+        return pq.top();
     }
-
-private:
-    int k;
-    priority_queue<int, vector<int>, greater<int>> minHeap;  // Min-heap to store the k largest elements
 };
 
 /**
