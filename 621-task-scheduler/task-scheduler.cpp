@@ -1,18 +1,22 @@
 class Solution {
 public:
     int leastInterval(vector<char>& tasks, int n) {
-        int freq[26] = {0};
-        for(char task : tasks){
-            freq[task - 'A']++;
-        }
-        sort(begin(freq) , end(freq));
-        int chunk = freq[25] - 1;
-        int idel = chunk * n;
 
-        for(int i=24; i>=0; i--){
-            idel -= min(chunk,freq[i]);
+        vector<int> freq(26,0); // stores freq of each char in taskss;
+        for(char ch : tasks){
+            freq[ch - 'A']++; // freq add ki char ki 
         }
 
-        return idel < 0 ? tasks.size() : tasks.size() + idel;
+        int maxFreq = *max_element(freq.begin(), freq.end()); // max ele kya hai
+        
+        int cnt = 0; // to keep track kitno ki freq maxfreq se barabar hai
+        for(int x : freq){
+            if(x == maxFreq) cnt++; // freq equal to maxfreq
+        }
+
+        //ab formula to find total schedules
+        int ans = max((int)tasks.size(), (maxFreq-1)*(n+1)+cnt); // max from total size ya gaps*blocks + cnt of maxfreq eles
+        return ans;
+
     }
 };
