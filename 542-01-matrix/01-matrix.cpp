@@ -27,7 +27,7 @@ public:
                 int nc = c + dc[k]; // agal bagal 
 
                 if(nr >= 0 && nr < m && nc >= 0 && nc < n 
-                   && mat[nr][nc] == -1){
+                   && mat[nr][nc] == -1){ // i.e unvisited hai
 
                     mat[nr][nc] = mat[r][c] + 1; // distance = jisse bfs call usme +1
                     q.push({nr,nc}); // next BFS level
