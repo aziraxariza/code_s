@@ -13,7 +13,6 @@ public:
         int dr[] = {1,-1,0,0,-1,-1,1,1}; // for 8 dirxns
         int dc[] = {0,0,1,-1,-1,1,-1,1};
 
-        bool end = false;
 
         while(!q.empty()){
             int sz = q.size();
