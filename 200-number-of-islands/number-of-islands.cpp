@@ -1,33 +1,29 @@
 class Solution {
 public:
     void dfs(int i, int j, vector<vector<char>>& grid) {
-        int n = grid.size();
-        int m = grid[0].size();
+        int m = grid.size();
+        int n = grid[0].size(); // row col liya
 
-        // base cases
-        if (i < 0 || i >= n || j < 0 || j >= m || grid[i][j] == '0')
-            return;
+        if (i < 0 || i >= m || j < 0 || j >= n || grid[i][j] == '0') return; // base cases
 
-        // make current cell as water
-        grid[i][j] = '0';
+        grid[i][j] = '0'; // isko pani bana do
 
-        // all 4 directions
-        dfs(i + 1, j, grid);
+        dfs(i + 1, j, grid); // all 4 dircns mein same karo for one continuos piece of land
         dfs(i - 1, j, grid);
         dfs(i, j + 1, grid);
         dfs(i, j - 1, grid);
     }
 
     int numIslands(vector<vector<char>>& grid) {
-        int n = grid.size();
-        int m = grid[0].size();
+        int m = grid.size();
+        int n = grid[0].size();
         int islands = 0;
 
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) { // traverse grid get 1s jo hai
                 if (grid[i][j] == '1') {
-                    islands++;
-                    dfs(i, j, grid);
+                    islands++; // island shuru
+                    dfs(i, j, grid); // ab hum agal bagal ko traverse karenge aur pani bana denge
                 }
             }
         }
