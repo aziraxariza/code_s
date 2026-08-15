@@ -7,12 +7,12 @@ public:
         int j = 0;
 
         for(int i = 1; i < n; i++){
-            if(nums[i] != nums[j]){
-                j++;
-                nums[j] = nums[i];
+            if(nums[i] != nums[j]){ // dono alag hai toh
+                j++; // j badhao
+                nums[j] = nums[i]; // j ki posn par ith daal do 
             }
         }
 
-        return j + 1;
+        return j + 1; // j is idx so idx+1 eles unique hai
     }
 };
