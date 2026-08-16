@@ -9,7 +9,7 @@ public:
             int area = min(height[l], height[r]) * (r - l);
             ans = max(ans, area);
 
-            if (height[l] < height[r])
+            if (height[l] < height[r]) // jiski height kum usse aage badhenge
                 l++;
             else
                 r--;
