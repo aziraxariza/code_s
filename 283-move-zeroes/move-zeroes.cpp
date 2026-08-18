@@ -1,13 +1,14 @@
-class Solution {
+class Solution { // slow/fast 
 public:
     void moveZeroes(vector<int>& nums) {
-        int j = 0;
+        int slow = 0; // slow ptr
 
-        for (int i = 0; i < nums.size(); i++) { // scan karenge array * j apne aap badhta chalega
-            if (nums[i] != 0) { // zero nahi hai
-                swap(nums[i], nums[j]); // toh swap with slow ptr value
-                j++; // slow aage badhaya
-            } 
+        for(int fast = 0; fast < nums.size(); fast++){
+            // agar nums[j] != 0 toh jo ith par hai usse swap and i++
+            if(nums[fast] != 0){
+                swap(nums[fast], nums[slow]);
+                slow++; // agar nums[j] 0 hua toh i us par ruk jayega
+            }
         }
     }
 };
