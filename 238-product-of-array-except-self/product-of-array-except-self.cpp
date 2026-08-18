@@ -2,18 +2,16 @@ class Solution {
 public:
     vector<int> productExceptSelf(vector<int>& nums) {
         int n = nums.size();
-        vector<int> ans(n);
+        vector<int> ans(n, 1); // sab abhi 1 hai
 
-        int left = 1; // aage se prdt
-        for (int i = 0; i < n; i++) {
-            ans[i] = left;
-            left *= nums[i];
+        for(int i = 1; i < n; i++){ // prefix product
+            ans[i] = ans[i-1] * nums[i-1]; // khudko chodke peeche tak ke prdt aur nums mein khudke peeche ka kyuki peeche wale mein woh misisng hai
         }
-
-        int right = 1; // peeche se
-        for (int i = n - 1; i >= 0; i--) {
-            ans[i] *= right;
-            right *= nums[i];
+        
+        int suffix = 1; // suffix prdt
+        for(int j = n-1; j >= 0; j--){
+            ans[j] *= suffix;
+            suffix *= nums[j];
         }
 
         return ans;
