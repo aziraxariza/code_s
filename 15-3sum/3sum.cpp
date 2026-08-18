@@ -1,36 +1,39 @@
 class Solution {
 public:
-    vector<vector<int>> threeSum(vector<int>& nums) {
-        vector<vector<int>> ans;
+    vector<vector<int>> threeSum(vector<int>& nums) { // fix one and uske aage se 2 ptr
+        vector<vector<int>> ans; // final ans;
         int n = nums.size();
 
-        sort(nums.begin(), nums.end());
+        sort(nums.begin(), nums.end()); // apni value ke hisab se sort ho gaye
 
-        for(int i = 0; i < n - 2; i++){
-
-            int l = i + 1;
-            int r = n - 1;
-
-            if (i > 0 && nums[i] == nums[i - 1])
-                continue;
+        for(int i = 0; i < n; i++){ // ith ko fix rakhenge as 1st 
+            if(i > 0 && nums[i-1] == nums[i]){
+                continue; // duplicate ith ke sath wapas repeated aa sakti hai answers
+            }
+            int first = nums[i];
+            int l = i+1;
+            int r = n-1; // got our 2 pointrs
 
             while(l < r){
-                int sum = nums[i] + nums[l] + nums[r];
+                if(first+nums[l]+nums[r] == 0){
+                    ans.push_back({first, nums[l], nums[r]}); // mil gaya combo
 
-                if(sum == 0){
-                    ans.push_back({nums[i], nums[l], nums[r]});
-                    l++; r--; 
-                    while(l < r && nums[l] == nums[l-1]) l++; // skip same from l side
-                    while(l < r && nums[r] == nums[r+1]) r--; // skip same from r side
-                }
-
-
-                else if(sum < 0){
+                    while(l<r && nums[l+1]==nums[l]){
+                        l++; // l ke repeated vals skip
+                    }
+                    while(l<r && nums[r-1]==nums[r]){
+                        r--; // r ke repeated vals skip
+                    }
                     l++;
-                } 
+                    r--; // aur check karo with this i as first
+                }
+                
+                else if(first+nums[l]+nums[r] < 0){
+                    l++; // l wale se thodi badi val dekho
+                }
                 else{
-                    r--; // we need smaller sum so reduce r
-                } 
+                    r--; // thodi chhoti dhundho r se
+                }
             }
         }
         return ans;
