@@ -1,22 +1,22 @@
 class Solution {
 public:
     int longestOnes(vector<int>& nums, int k) {
+
         int l = 0;
+        int zeros = 0; // cnt zero to keep track
         int ans = 0;
-        int zeros = 0;
 
-        for(int r = 0; r < nums.size(); r++){
-            if(nums[r] == 0){
-                zeros++; // add zero count
-            }
+        for(int r = 0; r < nums.size(); r++) {
 
-            while(zeros > k){ // ab agar zeros k se zyada ho gaye toh k zeros convert karo 1 mein
-                if(nums[l] == 0){
-                    zeros--; // maan lo inn zeros ko 1 bana diya
+            if(nums[r] == 0) zeros++; // cnt zeros
+
+            while(zeros > k) { // jaise hi k se hue 
+                if(nums[l] == 0){ // preceeding 0s ko hatao jo k+1th  0 zero tak hai
+                    zeros--; 
                 }
-                l++; // aage zero par lane ke liye jo 
+                l++; // jab tak k zeros nahi hat te 
             }
-            ans = max(ans, r-l+1); // jab tak zero k exceed nahi karega tab tak length mein woh add honge
+            ans = max(ans, r - l + 1); // max streak
         }
         return ans;
     }
