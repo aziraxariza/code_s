@@ -1,22 +1,22 @@
 class Solution {
 public:
     int totalFruit(vector<int>& fruits) {
-        unordered_map<int, int> mp; // to keep track of 2 types of fruits.. 
-        
-        int l = 0;
-        int ans = 0;
+        unordered_map<int, int> mp; // isme 2 fruits rahenge with fruits --> freq
+        int l = 0; // peeche wala fruit sabse
+        int ans = 0; // max length
 
         for(int r = 0; r < fruits.size(); r++){
-            mp[fruits[r]]++; // add kiya ye fruit
+            mp[fruits[r]]++;
 
-            while(mp.size() > 2){ // agar size bada hua 2 i.e more than 2 types of fruits a,b + c 
-                mp[fruits[l]]--; // jab tak size 2 se zyada tab tak hatao jo shuruat mein hai i.e a ke saare hatao
+            while(mp.size() > 2){ // 2 type se zyada fruits ho gye
 
-                if(mp[fruits[l]] == 0)
-                    mp.erase(fruits[l]); // iss type ke ab zero hai 
-                l++; // keep incr l after each removal
+                mp[fruits[l]]--; // sabse starting wale type ko reduce karo
+                if(mp[fruits[l]] == 0){
+                    mp.erase(fruits[l]); // isko mp se hatao ab jab ye 0 hai
+                }
+                l++; // after each removal move l forwrd
             }
-            ans = max(ans, r - l + 1); // max length track karne ke liye
+            ans = max(ans, r-l+1); // dist bw initial and curr posn
         }
         return ans;
     }
