@@ -1,39 +1,81 @@
 class Solution {
 public:
-    void dfs(int i, int j, vector<vector<int>>& grid, int &area){
+    int dfs(int i, int j, vector<vector<int>>& grid, int currArea){
         int m = grid.size();
         int n = grid[0].size();
+        if(i < 0 || i >= m || j < 0 || j >= n || grid[i][j] != 1) return 0; // bounds
 
-        if(i < 0 || i >= m || j < 0 || j >= n || grid[i][j] == 0) return; // no land, paani hai
+        currArea++; // iss piece ka area badhaya
+        grid[i][j] = 0; // to mark visited iss land ko 0 bana diya
 
-        area++; // add land
-        grid[i][j] = 0; // make water to mark visited
+        currArea += dfs(i+1, j, grid, 0); // 4 dirxns se area add karwao
+        currArea += dfs(i-1, j, grid, 0); // 0 isliye currArea taaki unique lands add ho
+        currArea += dfs(i, j+1, grid, 0);
+        currArea += dfs(i, j-1, grid, 0); // sabhi ko add karna hai currArea mein unse kitne jude hai sab add hote jayenge initial currArea se 
 
-        dfs(i+1, j, grid, area); // all 4 dirxns
-        dfs(i-1, j, grid, area);
-        dfs(i, j+1, grid, area);
-        dfs(i, j-1, grid, area);
-        
+        return currArea; // iss poore piece ka area jo aaya return karo
     }
     
     int maxAreaOfIsland(vector<vector<int>>& grid) {
-        int m = grid.size();
-        int n = grid[0].size();
-        int islands = 0;
+        int m = grid.size(); // no. of rows
+        int n = grid[0].size(); // cols
 
-        vector<int> areas; // store karega har ek island ka area
+        int ansArea = 0;
+
         for(int i = 0; i < m; i++){
             for(int j = 0; j < n; j++){
-                if(grid[i][j] == 1){
-                    islands++; // island shuru
-                    int area = 0; //area shuru mark - har ek dfs of land ke baad +1 hoga
-                    dfs(i, j, grid, area);
-                    areas.push_back(area);
+                if(grid[i][j] == 1){ // island shuru
+                    int currArea = dfs(i, j, grid, 0); // dfs se agal bagal mila kar area
+                    ansArea = max(ansArea, currArea);
                 }
             }
         }
-        sort(areas.begin(), areas.end()); // sort kar diya area wise
-        int k = areas.size();
-        return islands ? areas[k-1] : 0; // koi island hai toh biggest area else 0
+        return ansArea; // kis land ka sabse zyada area
     }
 };
+
+/*  A TAD BIT SIMPLER
+class Solution {
+public:
+    int dfs(int i, int j, vector<vector<int>>& grid) {
+        int m = grid.size();
+        int n = grid[0].size();
+
+        // boundary ya water
+        if(i < 0 || i >= m || j < 0 || j >= n || grid[i][j] == 0)
+            return 0;
+
+        // visited mark
+        grid[i][j] = 0;
+
+        // current cell = 1
+        int area = 1;
+
+        // 4 directions
+        area += dfs(i + 1, j, grid);
+        area += dfs(i - 1, j, grid);
+        area += dfs(i, j + 1, grid);
+        area += dfs(i, j - 1, grid);
+
+        return area;
+    }
+
+    int maxAreaOfIsland(vector<vector<int>>& grid) {
+        int m = grid.size();
+        int n = grid[0].size();
+
+        int ans = 0;
+
+        for(int i = 0; i < m; i++) {
+            for(int j = 0; j < n; j++) {
+
+                if(grid[i][j] == 1) {
+                    int area = dfs(i, j, grid);
+                    ans = max(ans, area);
+                }
+            }
+        }
+
+        return ans;
+    }
+}; */
