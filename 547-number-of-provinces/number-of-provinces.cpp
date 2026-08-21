@@ -1,27 +1,27 @@
 class Solution {
 public:
+    void dfs(int i, vector<vector<int>>& isConnected, vector<int>& vis){
+        vis[i] = 1; // mark visited iss node ko
 
-    void dfs(int node, vector<vector<int>>& isConnected, vector<int>& vis) {
-        vis[node] = 1; // mark visited
-
-        for(int j = 0; j < isConnected.size(); j++) { // usse jude hue khojne ke liye adj matrix mein
-            if(isConnected[node][j] == 1 && !vis[j])
-                dfs(j, isConnected, vis); // usse jude hai toh dfs mein ghumo aur visited mark karo
-        }
-    }
-
-    int findCircleNum(vector<vector<int>>& isConnected) {
-        int n = isConnected.size();
-        vector<int> vis(n, 0); // made visited to track each node
-
-        int province = 0;
-
-        for(int i = 0; i < n; i++) { // har ek node
-            if(!vis[i]) { // nahi kiya visit toh
-                province++; // naya province shuru
-                dfs(i, isConnected, vis); //isse connected
+        for(int j = 0; j < isConnected.size(); j++){ 
+            if(isConnected[i][j] == 1 && !vis[j]){ // i se jude nodes 
+                dfs(j, isConnected, vis); // inka dfs kar diya vis mark kr diya as well
             }
         }
-        return province;
+    }
+    
+    int findCircleNum(vector<vector<int>>& isConnected) {
+        int n = isConnected.size(); // no. of rows for here tho dono row cols same hai
+        vector<int> vis(n, 0); // to mark vis nodes
+
+        int provinces = 0; // for provinces cnt
+        for(int i = 0; i < n; i++){
+            if(!vis[i]){ // agar unvisited hai node
+                provinces++; // ye ek province hua shuru // saare disconnected components ke beg se provinces mark ho jayengi
+                dfs(i, isConnected, vis); // connected nodes dfs se vis mark ho jayengi
+            }
+        }
+
+        return provinces;
     }
 };
