@@ -1,52 +1,51 @@
-class Solution {
+class Solution { // MULTI SOURCE BFS
 public:
     int orangesRotting(vector<vector<int>>& grid) {
-        //multi source bfs kyuki level by level for each rotten simultaneously
+        int m = grid.size(); // no. of rows
+        int n = grid[0].size();
 
-        int m = grid.size(); // rows
-        int n = grid[0].size(); // cols
+        queue<pair<int, int>> q; // stores {i,j} of rotten
+        int fresh = 0; // fresh oranges
 
-        queue<pair<int, int>> q; // stores rotten oranges
-        int fresh = 0; // counts fresh oranges
-
-        //shuruat mein initial all rotten ko put in q 
         for(int i = 0; i < m; i++){
             for(int j = 0; j < n; j++){
-                if(grid[i][j] == 2) q.push({i, j}); // shuruat wale rots
-                if(grid[i][j] == 1) fresh++; // to keep track of fresh
-            }
-        }
-
-        if(fresh == 0) return 0; // already rotten
-        int minutes = 0; //keeps track of time | incr. after each bfs
-
-        //directions
-        int dr[] = {-1, 1, 0, 0}; // for row changing
-        int dc[] = {0, 0, -1, 1}; // for row changing
-
-        while(!q.empty()){
-            int sz = q.size(); // taking ek baari mein kitne rotten sath
-            bool rottenThisMinute = false; // did any orange rot this minute?
-
-            while(sz--){
-                auto[r, c] = q.front(); // get its row col
-                q.pop(); // ho gaya ye
-
-                for(int k = 0; k < 4; k++){ // for 4 dirxns
-                    int nr = r + dr[k]; // row posn
-                    int nc = c + dc[k]; // col posn
-
-                    if(nr >= 0 && nr < m && nc >= 0 && nc < n && grid[nr][nc] == 1){ // fresh hai aur grid ke limits mein hai i.e inside
-                        grid[nr][nc] = 2; // make it rotten
-                        fresh--; 
-                        q.push({nr, nc});
-                        rottenThisMinute = true; // iss min mein rotten hua
-                    }
+                if(grid[i][j] == 2){
+                    q.push({i, j}); // sare rotten ko sath mein daal diya q mein
+                }
+                if(grid[i][j] == 1){
+                    fresh++; // fresh cnt kar lo
                 }
             }
-            if(rottenThisMinute) minutes++; // iss level par rotten mile
         }
-        return (fresh == 0) ? minutes : -1; // fresh is now 0 toh minutes warna -1
 
+        int dr[] = {+1, -1, 0, 0}; 
+        int dc[] = {0, 0, +1, -1}; // 4 dixns adj to cell
+
+        int minutes = 0; // final ans hoga
+
+        while(!q.empty()){
+            int sz = q.size();
+            bool rottenThisMin = false; // kya iske bagal mein rotten tha aage pata lagane ke liye
+            while(sz--){
+                auto [r, c] = q.front(); // liya i j of this rotten orange
+                q.pop();
+
+                for(int k = 0; k < 4; k++){
+                    int nr = r + dr[k]; // r c ke adjacent 4 dirxns ke i j
+                    int nc = c + dc[k]; 
+
+                    if(nr >= 0 && nr < m && nc >= 0 && nc < n && grid[nr][nc] == 1){
+                        //bounds mein hai aur 1 hai toh rot karo
+                        grid[nr][nc] = 2; // rotten banaya
+                        fresh--; // reduce fresh cnt
+
+                        q.push({nr, nc});
+                        rottenThisMin = true; // iss minute agal bagal rotten mil gaya
+                    }
+                }
+            } 
+            if(rottenThisMin) minutes++;  // agar iss min koi rotten mila toh incr min
+        }
+        return (fresh == 0) ? minutes : -1; // agar sare rotten toh mins return warna -1
     }
 };
