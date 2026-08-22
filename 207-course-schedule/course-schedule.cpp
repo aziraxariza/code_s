@@ -1,7 +1,7 @@
 class Solution { //CYCLE DETECTION se karna hai 
 public:
     bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
-        vector<vector<int>> adj(numCourses);
+        vector<vector<int>> adj(numCourses); // kahns algo se 
         vector<int> indegree(numCourses, 0);
 
         for(auto p : prerequisites) { // adj list
