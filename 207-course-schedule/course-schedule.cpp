@@ -1,34 +1,40 @@
-class Solution {
+class Solution { //CYCLE DETECTION se karna hai 
 public:
-    bool dfs(int node, vector<vector<int>>& adj, vector<int>& state) {
-        if(state[node] == 1) return false; // current path mein mila = cycle
-        if(state[node] == 2) return true;  // already completely checked
-
-        state[node] = 1; // abhi process ho raha hai
-
-        for(int next : adj[node]) {
-            if(!dfs(next, adj, state))
-                return false;
-        }
-
-        state[node] = 2; // iska poora DFS complete
-        return true;
-    }
-
     bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
         vector<vector<int>> adj(numCourses);
+        vector<int> indegree(numCourses, 0);
 
-        for(auto p : prerequisites) {
-            adj[p[1]].push_back(p[0]); // p[1] -> p[0]
+        for(auto p : prerequisites) { // adj list
+            int course = p[0];
+            int prerequisite = p[1];
+
+            adj[prerequisite].push_back(course);
+            indegree[course]++;
         }
 
-        vector<int> state(numCourses, 0);
+        queue<int> q;
 
-        for(int i = 0; i < numCourses; i++) {
-            if(!dfs(i, adj, state))
-                return false;
+        for(int i = 0; i < numCourses; i++) { // course jinke no prerequisites
+            if(indegree[i] == 0) {
+                q.push(i);
+            }
         }
 
-        return true;
+        int count = 0;
+
+        while(!q.empty()) {
+            int node = q.front();
+            q.pop();
+
+            count++;
+
+            for(int neighbor : adj[node]) {
+                indegree[neighbor]--;
+                if(indegree[neighbor] == 0) {
+                    q.push(neighbor);
+                }
+            }
+        }
+        return count == numCourses;
     }
 };
