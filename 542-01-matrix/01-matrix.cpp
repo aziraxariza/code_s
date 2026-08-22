@@ -1,40 +1,39 @@
 class Solution {
 public:
     vector<vector<int>> updateMatrix(vector<vector<int>>& mat) {
-        int m = mat.size(); // rows
+        int m = mat.size(); // no. of rows
         int n = mat[0].size(); // cols
 
-        queue<pair<int, int>> q;
-
+        queue<pair<int, int>> q; // isme sare 1 jayenge 
         for(int i = 0; i < m; i++){
             for(int j = 0; j < n; j++){
-                if(mat[i][j] == 0)
-                    q.push({i,j}); // sabhi 0 source hain
-                else
-                    mat[i][j] = -1; // 1 ko unvisited mark karo
-            }
-        }
-
-        int dr[] = {1,-1,0,0};
-        int dc[] = {0,0,1,-1}; // 4 directions
-
-        while(!q.empty()){
-            auto [r,c] = q.front();
-            q.pop();
-
-            for(int k = 0; k < 4; k++){
-                int nr = r + dr[k];
-                int nc = c + dc[k]; // agal bagal 
-
-                if(nr >= 0 && nr < m && nc >= 0 && nc < n 
-                   && mat[nr][nc] == -1){ // i.e unvisited hai
-
-                    mat[nr][nc] = mat[r][c] + 1; // distance = jisse bfs call usme +1
-                    q.push({nr,nc}); // next BFS level
+                if(mat[i][j] == 0){
+                    q.push({i, j}); // 0 ke i j ko push karenge
+                }
+                else{
+                    mat[i][j] = -1; // to mark it unvisited
                 }
             }
         }
 
-        return mat;
+        int dr[] = {1, -1, 0, 0}; 
+        int dc[] = {0, 0, 1, -1}; // 4 dirxns ke liye
+
+        while(!q.empty()){
+            auto [r, c] = q.front(); // isko uthaya
+            q.pop();
+
+            for(int k = 0; k < 4; k++){
+                int nr = r + dr[k];
+                int nc = c + dc[k]; 
+
+                if(nr >= 0 && nr < m && nc >= 0 && nc < n && mat[nr][nc] == -1){
+                    // sirf iske adjacent -1 i.e unvis 1 walo ki update karenge dist
+                    mat[nr][nc] = mat[r][c] + 1; // jiska adj hai uski 0 se dist. +1
+                    q.push({nr, nc}); // ab isse jude -1 iska 0 se dist +1 honge 
+                }
+            }
+        }
+        return mat; 
     }
 };
