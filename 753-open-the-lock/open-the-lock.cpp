@@ -29,9 +29,9 @@ public:
                     }
 
                     next[i] = (curr[i] - '0' + 9)%10 + '0'; // -1 kiya ith char ko
-                    if(!dead.count(next) && !vis.count(next)){ /// na hi dead hai na hi visited
-                        vis.insert(next); // mark visited
-                        q.push(next); //possible path to get target
+                    if(!dead.count(next) && !vis.count(next)){
+                        vis.insert(next);
+                        q.push(next); 
                     }
                 }
             }
