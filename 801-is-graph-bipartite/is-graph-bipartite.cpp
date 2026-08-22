@@ -1,32 +1,31 @@
 class Solution {
 public:
     bool isBipartite(vector<vector<int>>& graph) {
-        // represent A --> 0 and B --> 1
-        int n = graph.size();
-        vector<int> color(n, -1); // mark kiya all as uncolored
+        int n = graph.size(); // total nodes
+        vector<int> color(n, -1); // stores color of each node
 
-        for(int i = 0; i < n; i++){
-            if(color[i] != -1) continue; // dusre node par se continue if ye colored hai
+        queue<int> q; 
+        for(int i = 0; i < n; i++){ //esp.. for disconnected
+            if(color[i] != -1) continue; // alr visited/colored hai
 
-            queue<int> q; // store nodes
-            q.push(i); // iss uncolored node ko q mein dala
-            color[i] = 0; // color kiya node ko
+            q.push(i); //node ko q mein dala
+            color[i] = 0; // initial color 0 liya as A
 
             while(!q.empty()){
-                int node = q.front(); // liya isko as parent
+                int node = q.front();
                 q.pop();
 
-                for(int nei : graph[node]){ // iske neeche jude level wale dekho
-                    if(color[nei] == -1){ // uncolred hai toh
-                        color[nei] = 1 - color[node]; // opposite color kiya
-                        q.push(nei); // isko push to check baaki level wise jude nodes
+                for(auto nei : graph[node]){ // iske neighbour nodes
+                    if(color[nei] == -1){
+                        color[nei] = 1 - color[node]; // opposite of node's color
+                        q.push(nei); // isko bfs ke liye q mein dala
                     }
-                    else if(color[nei] == color[node]){ // colored and same as node ka color
-                        return false; // takes care when not possible
+                    else{ // agar nei colored hai aur same color ka nikla toh not bipartite
+                        if(color[nei] == color[node]) return false;
                     }
                 }
             }
         }
-        return true; 
+        return true;
     }
 };
