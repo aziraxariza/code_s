@@ -8,7 +8,7 @@ public:
             int course = p[0];
             int prerequisite = p[1];
 
-            adj[prerequisite].push_back(course);
+            adj[prerequisite].push_back(course); // 1 --> 0 rahega kyuki
             indegree[course]++;
         }
 
