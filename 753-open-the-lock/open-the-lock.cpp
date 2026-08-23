@@ -1,4 +1,4 @@
-class Solution {
+class Solution { // lik word ladder
 public:
     int openLock(vector<string>& deadends, string target) {
         unordered_set<string> dead(deadends.begin(), deadends.end()); // store karega deadends
