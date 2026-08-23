@@ -10,8 +10,8 @@ public:
         
         int suffix = 1; // suffix prdt
         for(int j = n-1; j >= 0; j--){
-            ans[j] *= suffix;
-            suffix *= nums[j];
+            ans[j] *= suffix; // isko first suffix se multiply
+            suffix *= nums[j]; // make curr right as nums[j]
         }
 
         return ans;
