@@ -1,4 +1,4 @@
-class Solution {
+class Solution { // like koko
 public:
     int smallestDivisor(vector<int>& nums, int threshold) {
         int lo = 1; // smallest divisor is 1 possible
