@@ -1,26 +1,29 @@
 class Solution {
 public:
     int shipWithinDays(vector<int>& weights, int days) {
-        int lo = *max_element(weights.begin(), weights.end()); // kyuki kum se kum cap jab max ele hogi tabh toh max ele ko chadha payenge ship par
-        int hi = accumulate(weights.begin(), weights.end(), 0); // kyuki agar sirf ek din hua toh sabko sath mein dalna hoga u
+        int lo = *max_element(weights.begin(), weights.end()); // so that mid capacity > max ele 
+        int hi = accumulate(weights.begin(), weights.end(), 0); // imagine sirf ek din ho
 
         while(lo < hi){
-            int mid = lo + (hi-lo)/2; // beech capacity le rahe as max possible capacity for now
+            int mid = lo + (hi-lo)/2;// middle capacity kitna weight le sakte ek din
 
-            int total = 0; // total weights accumulated of bags
-            int usedDays = 1; // pehle din se shuru
+            int total = 0; // total weights of bags
+            int daysUsed = 1; // kitne din lage
 
-            for(int x : weights){
-                if(total + x > mid){ // current package fit nahi ho raha cap mein
-                    usedDays++; // zyada aa gaya weight toh ab agle din       // agar kum aaya toh total + x same day tak rahega
-                    total = 0; // naya din empty start karo
+            for(int wei : weights){
+                if(total + wei> mid){
+                    daysUsed++; // new day kyuki new total zyada aa raha hai capacity se
+                    total = 0; // for next day
                 }
-
-                total += x; // weight add kardo   // if cap se kum hai toh total usedDay x ke under add hote jayenge    // else naya day shuru ho gaya toh ab total uske acc add hote jayega
+                total += wei; // add wei to this day
+            }
+            if(daysUsed <= days){
+                hi = mid; // isse kum dhundho jisse ho jaye
+            }
+            else{
+                lo = mid+1; // mid kum pad gaya
             }
 
-            if(usedDays <= days) hi = mid; // total usedDays days se kumm aaye toh usse kum se check karo
-            else lo = mid + 1; // zyada din lag gaye, capacity badhao i.e mid
         }
         return lo;
     }
