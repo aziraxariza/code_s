@@ -14,7 +14,7 @@ public:
         vector<string> same;
         vector<vector<string>> ans;
 
-        same.push_back(check[l][1]);
+        same.push_back(check[l][1]); 
 
         for(int r = 1; r < check.size(); r++){
             if(check[r][0]==check[l][0]){
