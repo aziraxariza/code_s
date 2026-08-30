@@ -15,8 +15,8 @@ public:
         if(root == NULL){
             return 0;
         }
-        int lh = maxDepth(root -> left);
-        int rh = maxDepth(root -> right);
-        return 1 + max(lh, rh);
+        int lh = maxDepth(root -> left); // left side se depth
+        int rh = maxDepth(root -> right); // right side se depth
+        return 1 + max(lh, rh); // har node ka max left,right + 1
     }
 };
