@@ -24,7 +24,7 @@ public:
 
         // min ko left aur max ko right ke order me rakho
         if(mn > mx)
-            swap(mn, mx);
+            swap(mn, mx); // jo idx ki value zyada woh second
 
         // 1. dono left se
         int left = mx + 1;
