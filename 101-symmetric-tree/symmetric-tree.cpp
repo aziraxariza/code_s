@@ -38,7 +38,7 @@ public:
             int l = 0; // l and r like palindrome comparison level mein
             int r = size-1;
             while(l <= r){
-                if(level[l] != level[r]) return false; // agar opp end par same nahi toh false
+                if(level[l] != level[r]) return false; // agar opp end par same nahi 
                 l++; // l aage
                 r--; // r peeche
             }
