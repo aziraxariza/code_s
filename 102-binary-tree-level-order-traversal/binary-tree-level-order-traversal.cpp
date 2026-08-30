@@ -12,26 +12,26 @@
 class Solution {
 public:
     vector<vector<int>> levelOrder(TreeNode* root) {
-        vector<vector<int>> ans;
+        vector<vector<int>> ans; // final ans
+        if(!root) return ans;
 
-        if(!root) return ans; // kuch hai hi nahi; 
-
-        queue<TreeNode*> q; // ek q to store node -> val
-        q.push(root);
+        queue<TreeNode*> q; // nodes store karega
+        q.push(root); // initial root push
 
         while(!q.empty()){
-            int size = q.size(); // no. of eles in q at same level
-            vector<int> level; // to store eles at same level
+            int size = q.size(); // to take all nodes at one level
+            vector<int> level; // for each level nodes
 
-            for(int i = 0; i < size; i++){ // jitne same level par hai traverse them
-                TreeNode* node = q.front(); // q ki first value ban gayi node
-                q.pop();
-                level.push_back(node -> val); // current level par add kar diya same level walo ko
+            while(size--){
+                TreeNode* node = q.front();
+                q.pop(); 
 
-                if(node -> left) q.push(node -> left); // ab left mein hai toh usko daal do q mein for next level 
-                if(node -> right) q.push(node -> right); // ab right mein hai toh usko daal do q mein for next level 
+                level.push_back(node->val); // iss level mein dalo
+
+                if(node->left) q.push(node->left);
+                if(node->right) q.push(node->right);
             }
-            ans.push_back(level); // current level ko daal diya ans mein
+            ans.push_back(level); // ye level ans mein dala
         }
         return ans;
     }
