@@ -12,18 +12,18 @@
 class Solution {
 public:
     int solve(TreeNode* root, int &maxi) {
-        if(!root) return 0;
+        if(!root) return 0; // no node 0 return
 
-        int left = max(0, solve(root->left, maxi)); // negative paths ignore karenge --> agar iss path se add karke value kum ho rahi toh mat lo 
-        int right = max(0, solve(root->right, maxi));     
+        int left = max(0, solve(root->left, maxi)); // negative children nahi lenge
+        int right = max(0, solve(root->right, maxi));
 
-        maxi = max(maxi, root->val + left + right); // best path through current node aur uski family
+        maxi = max(maxi, root->val + left + right); // har fam se bottom up maxi dekho
 
-        return root->val + max(left, right); // iss node ki family ki kya value hai total wapas bhejo
+        return root->val + max(left, right); //har fam ki value return
     }
 
     int maxPathSum(TreeNode* root) {
-        int maxi = INT_MIN;// sabse chhotu keep maxi ko
+        int maxi = INT_MIN;// initially
 
         solve(root, maxi); // fn call for maxi calc
 
