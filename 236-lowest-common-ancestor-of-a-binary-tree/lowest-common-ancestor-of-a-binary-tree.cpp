@@ -11,13 +11,15 @@ class Solution {
 public:
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
         if(!root) return NULL;
-        if(root == p || root == q) return root;
+        if(root == p || root == q){
+            return root; 
+        }
 
-        TreeNode* left = lowestCommonAncestor(root -> left, p, q);
-        TreeNode* right = lowestCommonAncestor(root -> right, p, q);
+        TreeNode* left = lowestCommonAncestor(root->left, p, q); // left se dekho
+        TreeNode* right = lowestCommonAncestor(root->right, p, q);
 
-        if(left && right) return root; //iss root ke left aur right dono se value mili toh humara root lca hai
+        if(left && right) return root; // iske left aur right dono se mile
 
-        return left ? left : right; // jisse mili value usko wapas bhejo jo not null hai
+        return left ? left : right; // agar sirf ek koi mila toh woh jisse mila woh return 
     }
 };
