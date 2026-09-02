@@ -23,8 +23,8 @@ public:
         }
         solve(root->right, cnt, ans, k);
     }
+    
     int kthSmallest(TreeNode* root, int k) {
-        
         int cnt = 0;        
         int ans;
         solve(root, cnt, ans, k);
