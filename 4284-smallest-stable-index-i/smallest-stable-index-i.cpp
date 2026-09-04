@@ -7,15 +7,16 @@ public:
         int maxi = INT_MIN;
 
         for(int i = 0; i < n; i++){
-            maxi = max(maxi, nums[i]); // 0 to i tak max
+            maxi = max(maxi, nums[i]); // maximum value from index 0 to i
 
-            int mini = INT_MAX; // har i ke liye new mini hoga 
+            int mini = INT_MAX; // reset minimum for the current index
             for(int j = i; j < n; j++){
-                mini = min(mini, nums[j]); // i to n-1 tak min
+                mini = min(mini, nums[j]); // minimum value from index i to n-1
             }
+
             if(maxi - mini <= k){
                 ans = i;
-                break; // smallest idx w ans
+                break; // this is the smallest stable index
             }
         }
         return ans;
