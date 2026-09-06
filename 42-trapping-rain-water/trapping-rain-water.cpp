@@ -1,34 +1,34 @@
 class Solution {
 public:
     int trap(vector<int>& height) {
-        int left = 0;
-        int right = height.size()-1;
-        int leftMax = 0;
-        int rightMax = 0; // max height from left and right
+        int l = 0;
+        int r = height.size()-1; // idx of left and right
+        int leftMax = 0; 
+        int rightMax = 0;// max height from l and r side
 
-        int ans = 0;
-        while(left < right){
+        int ans = 0; // final ans
+        while(l < r){
 
-            if(height[left] <= height[right]){ // jis side height kum udhar se calc shuru
-                if(height[left] > leftMax){ // isko leftMax banao
-                    leftMax = height[left];
+            // JO CHHOTI HEIGHT UDHAR SE PROCESS KARENGE ****
+            if(height[l] <= height[r]){ 
+                if(height[l] > leftMax){
+                    leftMax = height[l]; // update bigger height from left side
                 }
                 else{
-                    ans += leftMax - height[left]; // add diff to get unit of water
+                    ans += leftMax - height[l]; // dono ka diff is water bw them
                 }
-                left++; // left se aage badhao
+                l++; // next l 
             }
 
             else{
-                if(height[right] > rightMax){ // isko leftMax banao
-                    rightMax = height[right];
+                if(height[r] > rightMax){
+                    rightMax = height[r]; 
                 }
                 else{
-                    ans += rightMax - height[right]; // add diff to get unit of water
+                    ans += rightMax - height[r]; 
                 }
-                right--; // right se peeche
+                r--; // next r
             }
-
         }
         return ans;
     }
