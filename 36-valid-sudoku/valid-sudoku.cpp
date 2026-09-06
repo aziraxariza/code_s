@@ -2,40 +2,25 @@ class Solution {
 public:
     bool isValidSudoku(vector<vector<char>>& board) {
 
-        // Check rows
-        for (int i = 0; i < 9; i++) {
-            unordered_map<char, int> mp;
-            for (int j = 0; j < 9; j++) {
-                if (board[i][j] == '.') continue;
-                if (++mp[board[i][j]] > 1) return false;
-            }
-        }
+        vector<unordered_set<char>> rows(9); // all 9 rows as sets for cchecking .count() se ki iss row mwin hai kya alr [{}, {}, {}, ..] 9 such sets for each row
+        vector<unordered_set<char>> cols(9);
+        vector<unordered_set<char>> boxes(9); // 9 3x3 boxes ke liye
 
-        // Check columns
-        for (int j = 0; j < 9; j++) {
-            unordered_map<char, int> mp;
-            for (int i = 0; i < 9; i++) {
-                if (board[i][j] == '.') continue;
-                if (++mp[board[i][j]] > 1) return false;
-            }
-        }
+        for(int i = 0; i < 9; i++){
+            for(int j = 0; j < 9; j++){
+                if(board[i][j] == '.') continue; // '.' matter nhi karta
 
-        // Check 3x3 boxes
-        for (int row = 0; row < 9; row += 3) {
-            for (int col = 0; col < 9; col += 3) {
+                char num = board[i][j]; // num kya hai
+                int box = 3*(i/3) + (j/3); // kaunse box mein hai acc. to its i j
 
-                unordered_map<char, int> mp;
-
-                for (int i = row; i < row + 3; i++) {
-                    for (int j = col; j < col + 3; j++) {
-
-                        if (board[i][j] == '.') continue;
-                        if (++mp[board[i][j]] > 1) return false;
-                    }
+                if(rows[i].count(num) || cols[j].count(num) || boxes[box].count(num)){
+                    return false; // alr same row/col/box mein hai ye num
                 }
+                rows[i].insert(num);
+                cols[j].insert(num);
+                boxes[box].insert(num); // dalo uske i j and box mein usse
             }
         }
-
         return true;
     }
 };
