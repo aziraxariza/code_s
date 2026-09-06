@@ -1,16 +1,15 @@
 class Solution {
 public:
     string longestCommonPrefix(vector<string>& strs) {
-        if (strs.empty()) return "";
-        
-        string prefix = strs[0];
-        for (int i = 1; i < strs.size(); i++) {
+        if(strs.size() == 0) return ""; // koi str nahi thi
 
-            while (strs[i].find(prefix) != 0) { // jab strs[i] mein prefix nahi aata
-                prefix = prefix.substr(0, prefix.size() - 1); // prefix ko short kiya substr le kar peeche se ek ek hata kar toh jo common tha woh reh gaya prefix mein
-                if (prefix.empty()) return ""; // agar prefix empty hua then not possible
+        string prefix = strs[0]; // initially first wale ko prefix rakha poora
+        
+        for(string s : strs){
+            while(s.find(prefix) != 0){ // jab tak s ke 0th idx se prefix nhi milta
+                prefix = prefix.substr(0, prefix.size()-1); // jo prefix tha uske peeche se char hatana start
             }
         }
-        return prefix;
+        return prefix; // common prefix of all
     }
 };
