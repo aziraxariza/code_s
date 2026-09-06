@@ -1,21 +1,22 @@
 class Solution {
 public:
     vector<int> topKFrequent(vector<int>& nums, int k) {
-        unordered_map<int, int> mp; // ele --> freq;
+        vector<int> ans; 
+
+        unordered_map<int, int> mp; // val -> freq
         for(int x : nums){
-            mp[x]++; // sabko map mein dala
+            mp[x]++; 
         }
 
-        priority_queue<pair<int, int>> pq; // max heap storing (freq, ele)
-        for(auto it : mp){
-            pq.push({it.second, it.first}); // apne aap freq ke acc store hongi
+        priority_queue<pair<int, int>> pq; // {freq, val} max heap
+        for(auto& it : mp){
+            pq.push({it.second, it.first});
         }
 
-        vector<int> ans; //final ans storing top k frequent eles
-        for(int i = 0; i < k; i++){
-            int val = pq.top().second; // hume ele chahiye pair se
-            pq.pop(); // isko heap se nikala
-            ans.push_back(val); // ans mein dala
+        while(k--){ // to get top k
+            auto check = pq.top(); // {freq, val}
+            pq.pop(); // remove from pq
+            ans.push_back(check.second); // val ko ans mein dala
         }
         return ans;
     }
