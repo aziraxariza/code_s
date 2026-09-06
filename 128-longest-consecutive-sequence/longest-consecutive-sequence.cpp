@@ -9,7 +9,7 @@ public:
 
         int ans =  0;
         int cnt = ans;
-        for(int x : st){ // traverse each ele of nums in st
+        for(int x : st){ // traverse each ele of nums in set
             if(st.count(x - 1)){ // st se pata lagayenge ki uska peeche ka tha ya no
                 cnt++;
             }
