@@ -1,22 +1,18 @@
 class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
-        unordered_set<char> st; // unique chars rahenge
-
         int ans = 0;
-        int cnt = 0;
-        int left = 0; // s ke chars ko pakadke rakhne ke liye
+        unordered_set<char> st; // keep track of unique chars
 
-        for(char ch : s) {
-            while(st.count(ch)) { // agar ye already hai st mein
-                st.erase(s[left]); // jab tak hai tab tak sare left ke hatao
-                left++;// next left par lao
-                cnt--; // cnt decrease jitne hate unke
+        int l = 0;
+        for(int r = 0; r < s.size(); r++){
+            while(st.count(s[r])){
+                st.erase(s[l]); // peeche se uss tak ke sare hatao 
+                l++;
             }
+            st.insert(s[r]); // curr char ko st mein dala
 
-            st.insert(ch); // insert into set 
-            cnt++;
-            ans = max(ans, cnt); // max cnt is ans
+            ans = max(ans, r-l+1); // max len
         }
         return ans;
     }
