@@ -1,48 +1,42 @@
 class Solution {
 public:
     string minWindow(string s, string t) {
-        map<char, int> need;
-        map<char, int> have;
+        unordered_map<char, int> need, mp;
 
-        for(char c : t){
+        for(char c : t) {
             need[c]++;
         }
 
         int l = 0;
         int formed = 0;
+        int required = need.size();
 
-        int minLen = INT_MAX;
         int start = 0;
+        int minLen = INT_MAX;
 
-        for(int r = 0; r < s.size(); r++){
-            char c = s[r];
-            have[c]++;
+        for(int r = 0; r < s.size(); r++) {
+            mp[s[r]]++;
 
-            if(need.count(c) && have[c] == need[c]){ // required frequency complete hui
+            // required frequency of this character is satisfied
+            if(need.count(s[r]) && mp[s[r]] == need[s[r]]) {
                 formed++;
             }
 
-            while(formed == need.size()){ // window valid
-                if(r - l + 1 < minLen){ // update answer
+            while(formed == required) {// valid window
+                if(r - l + 1 < minLen) {// update minimum
                     minLen = r - l + 1;
                     start = l;
                 }
+                mp[s[l]]--;
 
-                char leftChar = s[l];
-                have[leftChar]--;
-
-                if(need.count(leftChar) && // invalid ho gayi window
-                   have[leftChar] < need[leftChar]){
+                if(need.count(s[l]) && mp[s[l]] < need[s[l]]) {
                     formed--;
                 }
-
                 l++;
             }
         }
 
-        if(minLen == INT_MAX){
-            return "";
-        }
+        if(minLen == INT_MAX) return "";
         return s.substr(start, minLen);
     }
 };
