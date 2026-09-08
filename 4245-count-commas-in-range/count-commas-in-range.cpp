@@ -32,3 +32,12 @@ public:
         return commas;
     }
 };
+
+/*
+    int countCommas(int n) { // OPTIMAL
+        if (n < 1000)
+            return 0;
+
+        return (n - 1000) + 1;
+    }
+*/
