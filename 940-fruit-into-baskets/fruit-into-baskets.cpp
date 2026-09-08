@@ -1,22 +1,22 @@
 class Solution {
 public:
     int totalFruit(vector<int>& fruits) {
-        unordered_map<int, int> mp; // isme 2 fruits rahenge with fruits --> freq
-        int l = 0; // peeche wala fruit sabse
-        int ans = 0; // max length
+        unordered_map<int, int> mp; // val -> freq // hum at max mp mein 2 hi rakhenge fruits
+        int ans = 0; // continuous trees of 2 fruits
 
+        int l = 0;
         for(int r = 0; r < fruits.size(); r++){
-            mp[fruits[r]]++;
+            mp[fruits[r]]++; // iski freq add mp mein
 
-            while(mp.size() > 2){ // 2 type se zyada fruits ho gye
-
-                mp[fruits[l]]--; // sabse starting wale type ko reduce karo
-                if(mp[fruits[l]] == 0){
-                    mp.erase(fruits[l]); // isko mp se hatao ab jab ye 0 hai
+            while(mp.size() > 2){ // agar 2 se zyada types ke fal ho gaye
+                mp[fruits[l]]--;
+                if(mp[fruits[l]] == 0){ // ye khatam ho gaya toh
+                    mp.erase(fruits[l]);
                 }
-                l++; // after each removal move l forwrd
+                l++; // l aage badhaya
             }
-            ans = max(ans, r-l+1); // dist bw initial and curr posn
+
+            ans = max(ans, r-l+1); // cur continuous window se zyada mile kya fal?
         }
         return ans;
     }
