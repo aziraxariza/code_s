@@ -1,20 +1,18 @@
 class Solution {
 public:
     vector<vector<int>> merge(vector<vector<int>>& intervals) {
-        sort(intervals.begin(), intervals.end());
-        vector<vector<int>> ans;
+        vector<vector<int>> ans; // final ans;
 
-        for(auto x : intervals) {
-            if(ans.empty()) { // pehla interval
-                ans.push_back(x); // daal diya ans mein
+        sort(intervals.begin(), intervals.end()); // start time ke acc sort
+        ans.push_back(intervals[0]); // sabse first start time wala ans mein first ele
+
+        for(int r = 1; r < intervals.size(); r++){
+
+            if(intervals[r][0] <= ans.back()[1]){ // agar iska start last ke end se pehle
+                ans.back()[1] = max(ans.back()[1], intervals[r][1]); // end time is max of the two
             }
-
-            else if(x[0] <= ans.back()[1]) { // overlap hai
-                ans.back()[1] = max(ans.back()[1], x[1]); // last ka [1] update kiya bigger val se
-            }
-
-            else { // overlap nahi hai
-                ans.push_back(x);
+            else{
+                ans.push_back(intervals[r]);
             }
         }
         return ans;
