@@ -1,6 +1,21 @@
 class Solution {
 public:
     bool isPalindrome(int x) {
+
+        if(x < 0 || (x % 10 == 0 && x != 0)) return false;
+        int reversedHalf = 0; // peeche se aadhe number 
+        // odd x mein ye beech wala number miss kr dega // even x mein ye aadhe tak  reversed digit dega peeche se
+
+        while(x > reversedHalf){
+            reversedHalf = reversedHalf * 10 + x % 10; // making space for last digi of cur x int reverseHalf
+            x /= 10; // update x
+        }
+        
+        return (x == reversedHalf || x == reversedHalf/10); // revrsedHalf by 10 se prove hoga jo odd x mein beech ka number hai woh palindrome banayega ya nahi
+    }
+};
+
+/* 
        vector<int> check; // digis store
 
        if(x < 0) return false;
@@ -18,5 +33,4 @@ public:
         r--;
        }
        return true;
-    }
-};
+*/
