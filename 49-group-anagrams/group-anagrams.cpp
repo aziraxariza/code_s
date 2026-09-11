@@ -4,9 +4,9 @@ public:
         vector<vector<string>> ans; // final ans
         unordered_map<string, vector<string>> mp; // mp[sorted] -> {s1, s2..}
 
-        for(string s : strs){
+        for(string s : strs){ // O(n * klogk)
             string key = s;
-            sort(key.begin(), key.end()); //  key ko sort kr diya
+            sort(key.begin(), key.end()); //  key ko sort kr diya 
             mp[key].push_back(s); // mp[aet] -> {eat, tea, ate} hote jayega
         }
 
@@ -14,5 +14,7 @@ public:
             ans.push_back(it.second); // har group ko daalo ans mein
         }
         return ans;
+        // TC: O(n * k log k)
+        // SC: O(n * k)
     }
 };
