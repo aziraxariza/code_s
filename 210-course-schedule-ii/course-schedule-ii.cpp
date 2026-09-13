@@ -1,39 +1,43 @@
 class Solution {
 public:
     vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
-        vector<int> indegree(numCourses, 0); // har ek cousre ki indegree
+        // bi -> ai // hum store karenge bi mein bi ke baad kaunsa kar sakte hai course
+        vector<vector<int>> adj(numCourses); // adj list
+        vector<int> indegree(numCourses, 0); // indegree of each node
 
-        vector<vector<int>> adj(numCourses);
+        for(auto it : prerequisites){
+            int u = it[0]; // a
+            int v = it[1]; // b
 
-        for(int i = 0; i < prerequisites.size(); i++){
-            int u = prerequisites[i][1]; // pehle 1 karna padega
-            int v = prerequisites[i][0]; // 1 --> 0
-
-            adj[u].push_back(v);
-            indegree[v]++; // v ki indegree update ki
+            adj[v].push_back(u); // b -> a typa format
+            indegree[u]++;
         }
-        vector<int> ans; // order of courses 
 
-        queue<int> q;
+        queue<int> q; // for nodes
+
+        vector<int> ans; // kahns algo
+
         for(int i = 0; i < numCourses; i++){
             if(indegree[i] == 0){
-                q.push(i); // sabse pehle 0 indegree wale daal diye q mein 
+                q.push(i);
             }
         }
 
         while(!q.empty()){
-            int course = q.front(); // cousre liya
+            int node = q.front(); // get node
             q.pop();
-            ans.push_back(course); // ans mein dala
 
-            for(int nei : adj[course]){
-                indegree[nei]--; // har nei ki indegree kum karo by 1
+            ans.push_back(node); // topo sort
+
+            for(int nei : adj[node]){
+                indegree[nei]--; // reduce indegree of nei
                 if(indegree[nei] == 0){
-                    q.push(nei); // agar indegree nei ki 00 hui toh q mein dalo
+                    q.push(nei); // q mein dalo
                 }
             }
         }
-        if(ans.size() != numCourses) return {}; // cycle ban gayi, not possible
+
+        if(ans.size() != numCourses) return {}; // cycle hai
         return ans;
     }
 };
