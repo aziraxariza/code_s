@@ -1,35 +1,37 @@
 class Solution {
 public:
     int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
-        unordered_set<string> st(wordList.begin(), wordList.end()); // wordList ke saare words store kar liye
-        if(!st.count(endWord)) return 0; // hai hi nahi words ki list mein end word
+        unordered_set<string> st(wordList.begin(), wordList.end()); // wordList ke words in set dalo
+        if(!st.count(endWord)) return 0; // end word tha hi nhi wordList mein
 
-        queue<string> q;
-        q.push(beginWord); // first word ko q mein dala
-        int level = 1;
+        queue<string> q; // to contain related words level by level from wordList
+        q.push(beginWord);
 
-        int cnt = 0;
+        int levels = 1; // start level with beginWord
+
         while(!q.empty()){
-            int sz = q.size(); 
+            int sz = q.size(); // to process one level ke words at a time
             while(sz--){
-                string word = q.front(); // word liya
+                string word = q.front(); // get word
                 q.pop();
-                if(word == endWord) return level; // mil gaya 
+
+                if(word == endWord) return levels; // found
 
                 for(int i = 0; i < word.size(); i++){
                     char og = word[i];
+
                     for(char ch = 'a'; ch <= 'z'; ch++){
-                        word[i] = ch;
-                        if(st.count(word)){ // ye naya shabd wordList mein tha aur word ka koi ek char change karke aaya
-                           q.push(word); 
-                           st.erase(word); // ye word ho gaya
+                        word[i] = ch; // replace krke i ko dekho
+                    
+                        if(st.count(word)){
+                            q.push(word); // ye wordList mein tha ab isko q mein dalo 
+                            st.erase(word); // remove from st
                         }
-                       
                     }
-                    word[i] = og; // switch to og word
+                    word[i] = og; // ith posn par wapas og char dalo
                 }
             }
-            level++; // iss level ke hogaye i.e jitne words ek char ko change karke bane current word se 
+            levels++;
         }
         return 0;
     }
