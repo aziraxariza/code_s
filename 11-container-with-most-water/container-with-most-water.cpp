@@ -1,21 +1,21 @@
 class Solution {
 public:
     int maxArea(vector<int>& height) {
-        int l = 0; // start idx
-        int r = height.size() - 1; // last idx
+        int l = 0;
+        int r = height.size()-1; // idx of kone ke heights
 
-        int ans = 0;
+        int ans = 0; // final ans
         while(l < r){
-            int length = r-l; // total distance bw the two
-            int breadth = min(height[l], height[r]);
+            int breadth = min(height[l], height[r]); // chhoti wali lenge
+            int length = r-l; 
 
-            ans = max(ans, length*breadth);
+            ans = max(ans, length*breadth); // update ans
 
-            if(height[l] > height[r]){
-                r--; // jo bada hai usko rakhenge aur uske opposite ko badhayenge
+            if(height[l] < height[r]){
+                l++; // jo height badi hai woh rahegi
             }
             else{
-                l++;
+                r--;
             }
         }
         return ans;
