@@ -7,7 +7,7 @@ public:
         int n = arr.size(), cursum = 0;
         sm[0] = 0;
         memset(dp, 127, sizeof(dp));  //initialize to INF
-        for (int i = 0; i < 100005; i++) dp[i][0] = 0;  //if we doesn't find a subarray, len = 0
+        for (int i = 0; i < 100005; i++) dp[i][0] = 0;  //if we don't find a subarray, len = 0
         
         for (int i = 1; i <= n; i++) {
             int d = -1;  //initialize to -1
