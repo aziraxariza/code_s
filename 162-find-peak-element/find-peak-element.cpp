@@ -1,16 +1,19 @@
 class Solution {
 public:
     int findPeakElement(vector<int>& nums) {
-        int l = 0, r = nums.size() - 1;
+        int lo = 0;
+        int hi = nums.size()-1; // 2ptrs
 
-        while(l < r){
-            int mid = l + (r - l) / 2;
+        while(lo < hi){
+            int mid = lo + (hi-lo)/2;
 
-            if(nums[mid] > nums[mid + 1])
-                r = mid; // peak left ya mid par hai
-            else
-                l = mid + 1; // peak definitely right mein hai
+            if(nums[mid] < nums[mid+1]){
+                lo = mid+1; // apne aage wale se chhota
+            }
+            else{
+                hi = mid;
+            }
         }
-        return l; // idx of peak
+        return lo;
     }
 };
