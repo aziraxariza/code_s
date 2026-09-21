@@ -1,22 +1,22 @@
 class Solution {
 public:
-    vector<int> nextGreaterElements(vector<int>& nums) {
-
+    vector<int> nextGreaterElements(vector<int>& nums){
         int n = nums.size();
         vector<int> ans(n, -1);
-        stack<int> st;
 
-        for(int i = 2 * n - 1; i >= 0; i--) {
-            int idx = i % n; // circular index
+        stack<int> st; // eles idx
 
-            while(!st.empty() && st.top() <= nums[idx])
-                st.pop(); // remove smaller/equal elements
+        for(int i = 2*n-1; i >= 0; i--){
 
-            if(i < n) { // store answer only for original array
-                if(!st.empty())
-                    ans[idx] = st.top();
+            int idx = i%n; //actual from circular idx in 2n size //all comparisons w idx
+
+            while(!st.empty() && nums[st.top()] <= nums[idx]){
+                st.pop();
             }
-            st.push(nums[idx]);// current ab hai candidate for left elements
+            if(!st.empty()){
+                ans[idx] = nums[st.top()]; // nge of idx 's ele
+            }
+            st.push(idx); 
         }
         return ans;
     }
