@@ -7,10 +7,10 @@ public:
         int ans = nums[0]; // initially ans
 
         for(int i = 1; i < nums.size(); i++){
-            if(nums[i] < 1){ // negative val ke liye max aur min swap
+            if(nums[i] < 1){ // negative val ke liye max aur min swap 
                 swap(curMax, curMin); 
             }
-            curMax = max(nums[i], curMax*nums[i]);
+            curMax = max(nums[i], curMax*nums[i]); // by itself or after *ing
             curMin = min(nums[i], curMin*nums[i]);
 
             ans = max(ans, curMax);
