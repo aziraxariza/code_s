@@ -1,25 +1,22 @@
 class Solution {
 public:
     bool isValid(string s) {
-        stack<char> st; // opening brackets ke liye
+        stack<char> st; // for opening brackets
 
         for(char ch : s){
             if(ch == '(' || ch == '{' || ch == '['){
-                st.push(ch);
+                st.push(ch); // push to st
+            }
+            else if(!st.empty() && 
+                    (ch == ')' && st.top() == '(' || 
+                     ch == '}' && st.top() == '{' || 
+                     ch == ']' && st.top() == '[')){
+                st.pop(); // remove matching
             }
             else{
-                if(st.empty()) return false; // koi opening hai hi nahi in st for this closing bracket
-
-                else if(ch == ')' && st.top() == '(' || 
-                        ch == '}' && st.top() == '{' ||
-                        ch == ']' && st.top() == '['){
-                            st.pop(); // remove agr counter bracket top par hai
-                }
-                else{
-                    return false; // mismatched combo
-                }
-            } 
+                return false; // closing aaya but matching opening nahi hai
+            }
         }
-        return st.empty(); 
+        return st.empty(); // all done or not
     }
 };
