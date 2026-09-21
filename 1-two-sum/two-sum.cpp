@@ -9,8 +9,8 @@ public:
             if(mp.count(compliment)){
                 return {mp[compliment], i}; // idx of compl and current 
             }
-            mp[nums[i]] = i;
+            mp[nums[i]] = i; // add to mp
         }
-        return {};
+        return {}; // O(n) TC and SC
     }
 };
