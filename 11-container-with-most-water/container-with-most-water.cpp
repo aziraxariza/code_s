@@ -2,22 +2,21 @@ class Solution {
 public:
     int maxArea(vector<int>& height) {
         int l = 0;
-        int r = height.size()-1; // idx of kone ke heights
+        int r = height.size()-1; // l and r ptrs
 
-        int ans = 0; // final ans
+        int ans = 0;
         while(l < r){
-            int breadth = min(height[l], height[r]); // chhoti wali lenge
-            int length = r-l; 
+            int width = min(height[l], height[r]); // chhoti height lenge as common
+            int length = r-l;
+            ans = max(ans, width*length); // update ans
 
-            ans = max(ans, length*breadth); // update ans
-
-            if(height[l] < height[r]){
-                l++; // jo height badi hai woh rahegi
+            if(height[l] > height[r]){
+                r--; // keep bigger height
             }
             else{
-                r--;
+                l++;
             }
         }
-        return ans; // O(n)
+        return ans;
     }
 };
