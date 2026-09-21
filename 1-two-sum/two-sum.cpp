@@ -1,18 +1,16 @@
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
-       unordered_map<int, int> mp; // ele -> idx store
-       vector<int> ans;
+        unordered_map<int, int> mp; // val -> idx
 
-       for(int i = 0; i < nums.size(); i++){
-           int complement = target-nums[i]; // kitna chahiye aur is compl.
+        for(int i = 0; i < nums.size(); i++){
+            int compliment = target - nums[i];
 
-           if(mp.find(complement) != mp.end()){ // mp mein mil gaya compl.
-               ans = {mp[complement], i};
-           }
-           mp[nums[i]] = i;
-       }
-
-       return ans;
+            if(mp.count(compliment)){
+                return {mp[compliment], i}; // idx of compl and current 
+            }
+            mp[nums[i]] = i;
+        }
+        return {};
     }
 };
