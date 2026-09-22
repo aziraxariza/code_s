@@ -9,8 +9,8 @@ public:
 
             if(nums[mid] == target) return mid; // mil gaya return idx
 
-            if(nums[lo] <= nums[mid]){ // target left sorted range mein hai
-                if(nums[lo] <= target && target < nums[mid]){
+            if(nums[lo] <= nums[mid]){ // left half sorted
+                if(nums[lo] <= target && target < nums[mid]){// target left sorted range mein hai
                     hi = mid - 1;
                 }
                 else{
@@ -18,8 +18,8 @@ public:
                 }
             }
 
-            else{ // target right sorted range mein hai
-                if(nums[mid] < target && target <= nums[hi]){
+            else{ 
+                if(nums[mid] < target && target <= nums[hi]){// target right sorted range mein hai
                     lo = mid + 1;
                 }
                 else{
