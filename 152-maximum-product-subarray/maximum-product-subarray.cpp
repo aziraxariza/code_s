@@ -1,4 +1,4 @@
-class Solution {
+class Solution { 
 public:
     int maxProduct(vector<int>& nums) {
         int curMax = nums[0]; // abhi tak ka max prdt
