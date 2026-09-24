@@ -1,15 +1,13 @@
 class Solution {
 public:
-    int maxSubArray(vector<int>& nums) {
+    int maxSubArray(vector<int>& nums){
+        int cur = nums[0];
+        int ans = nums[0]; // initially
 
-        int cur = nums[0]; // current subarray ka sum
-        int ans = nums[0];  // ab tak ka maximum subarray sum
-
-        for(int r = 1; r < nums.size(); r++) {
-            cur = max(nums[r], cur + nums[r]);
-            ans = max(ans, cur);  // maximum answer update karo
+        for(int i = 1; i < nums.size(); i++){
+            cur = max(nums[i], cur+nums[i]); // by itself or after adding to old cur
+            ans = max(ans, cur);
         }
-
-        return ans; // maximum subarray sum
+        return ans;
     }
 };
