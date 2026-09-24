@@ -6,7 +6,7 @@ public:
 
         stack<int> st; // eles idx
 
-        for(int i = 2*n-1; i >= 0; i--){
+        for(int i = 2*n-1; i >= 0; i--){ //2n-1 times karo traverse
 
             int idx = i%n; //actual from circular idx in 2n size //all comparisons w idx
 
