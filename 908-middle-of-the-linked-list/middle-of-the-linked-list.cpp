@@ -11,24 +11,25 @@
 class Solution {
 public:
     ListNode* middleNode(ListNode* head) {
-        int n = 0;
+        int n = 0; // to count total nodes
         ListNode* temp = head;
 
         while(temp){
-            n++;
+            n++; // count node
             temp = temp->next;
         }
 
-        int p = n / 2 + 1;  // mid point
+        int mid = n/2 + 1; // mid eles no.
 
-        temp = head;
-        int k = 1;
+        ListNode* node = head;
 
-        while(k < p){
-            temp = temp->next;
-            k++;
+        int cnt = 0;
+        while(node){
+            cnt++;
+            if(cnt == mid) return node;
+            node = node->next;
         }
-        return temp; //yaha se n wale nodes shuru
+        return NULL;
     }
         
 };
