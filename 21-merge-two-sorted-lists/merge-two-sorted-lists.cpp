@@ -18,7 +18,7 @@ public:
         ListNode* temp2 = list2;
 
         ListNode* dummy = new ListNode(0);
-        ListNode* ans = dummy;
+        ListNode* ans = dummy; // ans ka first node dummy rakho
 
         while(temp1 && temp2){ // jab tak dono ke nodes hai
             if(temp1->val < temp2->val){ // jiski chhoti val usko next node liya
