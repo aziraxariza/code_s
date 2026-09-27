@@ -18,7 +18,7 @@ public:
         TreeNode* left = lowestCommonAncestor(root->left, p, q); // left se dekho
         TreeNode* right = lowestCommonAncestor(root->right, p, q);
 
-        if(left && right) return root; // iske left aur right dono se mile
+        if(left && right) return root; // iske left aur right dono se mile --> LCA
 
         return left ? left : right; // agar sirf ek koi mila toh woh jisse mila woh return 
     }
