@@ -11,19 +11,21 @@
  */
 class Solution {
 public:
-    int height(TreeNode* root, int &diameter) {
-        if(root == NULL) return 0;
 
-        int lh = height(root->left, diameter); // left child as node se diameter update ho jayega if max sath hi height from left side pata chal jayegi
-        int rh = height(root->right, diameter);
+    int heightD(TreeNode* root, int& diameter){
+        if(!root) return 0;
 
-        diameter = max(diameter, lh+rh); // sath sath diameter update for each node
-        return 1 + max(lh, rh); // height for each node
+        int lh = heightD(root->left, diameter);
+        int rh = heightD(root->right, diameter);
+
+        diameter = max(diameter, lh+rh); // diameter = sum of rh aur lh
+
+        return 1 + max(lh, rh); // height of node
     }
 
     int diameterOfBinaryTree(TreeNode* root) {
-        int diameter = 0; // shuruat
-        height(root, diameter); // recursive fn to get max diameter from each node
+        int diameter = 0;
+        heightD(root, diameter);
         return diameter; 
     }
 };
