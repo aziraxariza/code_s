@@ -11,16 +11,16 @@
 class Solution {
 public:
     ListNode* reverseList(ListNode* head) {
-        ListNode* curr = head;
-        ListNode* prev = NULL; // curr aur prev 2 nodes lo
+        ListNode* curr = head; // curr node
+        ListNode* prev = NULL; // peeche wala kaun
 
         while(curr){
-            ListNode* nxt = curr->next; // save og next of curr
+            ListNode* nxt = curr->next; // next kaun hai og
 
-            curr->next = prev; // peeche wala ab next 
-            prev = curr; // ab peeche wala curr hai
+            curr->next = prev; // peeche wala ab next
+            prev = curr; // new prev is curr
 
-            curr = nxt; // curr ab apna og curr ka next hai
+            curr = nxt; // move curr frwrd in og
         }
         return prev;
     }
