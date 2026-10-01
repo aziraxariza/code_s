@@ -1,4 +1,4 @@
-class Solution {
+class Solution { // O(n) TC AND SC
 public:
     bool isValid(string s) {
         stack<char> st; // for opening brackets
