@@ -14,7 +14,7 @@ public:
 
         queue<int> q;
 
-        for(int i = 0; i < numCourses; i++) { // course jinke no prerequisites
+        for(int i = 0; i < numCourses; i++) { // course jinke 0 prerequisites
             if(indegree[i] == 0) {
                 q.push(i);
             }
